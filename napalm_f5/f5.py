@@ -137,7 +137,7 @@ class F5Driver(NetworkDriver):  # pylint: disable=abstract-method, too-many-inst
             )
         else:
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-c "tmsh show running-config"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-c "tmsh show running-config recursive"'}
             )
         return {"running": config, "candidate": "", "startup": ""}
 
