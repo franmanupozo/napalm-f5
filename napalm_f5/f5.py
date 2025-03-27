@@ -111,10 +111,9 @@ class F5Driver(NetworkDriver):  # pylint: disable=abstract-method, too-many-inst
         format: str = "text",
     ) -> dict:
         """F5 version of 'get_config' method, see NAPALM for documentation.
-
         Args:
-            retrieve (string): Which configuration type you want to populate, default is full running-config. The rest will be set to “”.
-            full (bool): Retrieve all the configuration. For instance, on ios, “sh run all”.
+            retrieve (string): Which configuration type you want to populate, default is full running-config. The rest will be set to "".
+            full (bool): Retrieve all the configuration. For instance, on ios, "sh run all".
             sanitized (bool): Remove secret data. Default: False.
             format (string): The configuration format style to be retrieved.
         Returns:
@@ -124,21 +123,17 @@ class F5Driver(NetworkDriver):  # pylint: disable=abstract-method, too-many-inst
         """
         if sanitized or full:
             raise NotImplementedError("Specified feature for get_config() is not implemented.")
-
         if retrieve not in ["all", "recursive", "running"]:
             raise NotImplementedError(f"Retrieve type of {retrieve} is not valid. Only running-config can be provided.")
-
         if format != "text":
             raise NotImplementedError(f"Format of type {format} is not valid.")
-
         if retrieve == "recursive":
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
-
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": 'tmsh -q -c "cd /;show running-config recursive"'}
             )
         else:
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": 'tmsh -q -c "cd /;show running-config recursive"'}
             )
         return {"running": config, "candidate": "", "startup": ""}
 
