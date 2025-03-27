@@ -129,11 +129,11 @@ class F5Driver(NetworkDriver):  # pylint: disable=abstract-method, too-many-inst
             raise NotImplementedError(f"Format of type {format} is not valid.")
         if retrieve == "recursive":
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '/usr/bin/tmsh -q -c "cd /;show running-config recursive"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
             )
         else:
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '/usr/bin/tmsh -q -c "cd /;show running-config recursive"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
             )
         return {"running": config, "candidate": "", "startup": ""}
 
