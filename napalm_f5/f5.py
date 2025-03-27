@@ -133,12 +133,12 @@ class F5Driver(NetworkDriver):  # pylint: disable=abstract-method, too-many-inst
 
         if retrieve == "recursive":
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": 'tmsh -q -c "cd /;show running-config recursive"'}
 
             )
         else:
             config = self.device.command(
-                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": '-q -c "cd /;show running-config recursive"'}
+                "/mgmt/tm/util/bash", {"command": "run", "utilCmdArgs": 'tmsh -q -c "cd /;show running-config recursive"'}
             )
         return {"running": config, "candidate": "", "startup": ""}
 
